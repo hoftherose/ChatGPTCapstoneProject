@@ -6,7 +6,7 @@ from src.services.assistants import *
 
 
 assistant_router = APIRouter(
-    prefix="/api/v1",
+    prefix="/api/v1/assistant",
     tags=["Assistant"],
 )
 
