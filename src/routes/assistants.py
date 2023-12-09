@@ -35,3 +35,14 @@ def create_assistants(file: UploadFile):
     except Exception as e:
         logging.error(f"{str(e)}")
     return {"message": "Failed"}
+
+@assistant_router.post("/chapters")
+def create_multiple_assistant(file: UploadFile, chapters: str):
+    try:
+        create_assistant(file.filename)
+        return {"message": "Succeeded"}
+    except FileNotFoundError as e:
+        logging.error(f"File \"{file.filename}\" does not exist")
+    except Exception as e:
+        logging.error(f"{str(e)}")
+    return {"message": "Failed"}
