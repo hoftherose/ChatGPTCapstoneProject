@@ -9,6 +9,9 @@ def upload_file(path):
     )
     return file
 
+def get_assistant(path):
+    return {}
+
 def create_assistant(path):
     file = upload_file(path)
     if file is None:
