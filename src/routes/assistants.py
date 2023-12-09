@@ -1,6 +1,9 @@
-from fastapi import APIRouter
+import logging
+
+from fastapi import APIRouter, UploadFile
 
 from src.utils.constants import client
+from src.services.assistants import create_assistant
 
 
 assistant_router = APIRouter()
@@ -11,5 +14,10 @@ def get_assistants():
     return assistants
 
 @assistant_router.post("/assistants")
-def create_assistants():
-    return {"Hello": "World"}
+def create_assistants(file: UploadFile):
+    try:
+        create_assistant(file.filename)
+    except FileNotFoundError as e:
+        logging.error(f"File \"{file.filename}\" does not exist")
+    except Exception as e:
+        logging.error(f"{str(e)}")
