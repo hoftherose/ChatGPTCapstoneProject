@@ -10,7 +10,8 @@ def upload_file(path):
     return file
 
 def get_assistant(path):
-    return {}
+    assistant = client.beta.assistants.retrieve("asst_QHYOXsAQ96vbf3JpmGcoc28D")
+    return assistant
 
 def create_assistant(path):
     file = upload_file(path)
