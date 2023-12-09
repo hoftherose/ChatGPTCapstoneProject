@@ -5,7 +5,10 @@ from src.utils.constants import client
 from src.services.assistants import *
 
 
-assistant_router = APIRouter()
+assistant_router = APIRouter(
+    prefix="/api/v1",
+    tags=["Assistant"],
+)
 
 @assistant_router.get("/list")
 def list_assistants():
