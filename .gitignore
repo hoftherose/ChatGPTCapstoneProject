@@ -2,3 +2,5 @@
 textbooks/*
 notebooks/*
 logs/*
+*.log
+__pycache__
