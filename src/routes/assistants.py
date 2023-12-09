@@ -8,12 +8,12 @@ from src.services.assistants import create_assistant
 
 assistant_router = APIRouter()
 
-@assistant_router.get("/list/assistants")
+@assistant_router.get("/list")
 def get_assistants():
     assistants = client.beta.assistants.list()
     return assistants
 
-@assistant_router.post("/assistants")
+@assistant_router.post("/")
 def create_assistants(file: UploadFile):
     try:
         create_assistant(file.filename)

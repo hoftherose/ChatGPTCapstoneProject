@@ -5,4 +5,4 @@ from src.routes import assistant_router
 
 app = FastAPI()
 
-app.add_api_route(assistant_router)
+app.include_router(assistant_router, prefix="/assistants")

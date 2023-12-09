@@ -1,1 +1,1 @@
-from assistants import assistant_router
+from .assistants import assistant_router
