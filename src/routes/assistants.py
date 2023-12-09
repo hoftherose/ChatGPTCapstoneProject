@@ -1,8 +1,9 @@
-import logging
 from fastapi import APIRouter, UploadFile
+from fastapi.exceptions import ResponseValidationError
 
-from src.utils.constants import client
+from src.routes.responses import AssistantListResponse
 from src.services.assistants import *
+from src.utils.constants import client, logging
 
 
 assistant_router = APIRouter(
@@ -10,11 +11,15 @@ assistant_router = APIRouter(
     tags=["Assistant"],
 )
 
-@assistant_router.get("/list")
+@assistant_router.get(
+    "/list",
+    response_model=AssistantListResponse().model(),
+    response_description=AssistantListResponse().get("description"),
+)
 def list_assistants():
     try:
-        assistants = client.beta.assistants.list()
-        return assistants
+        assistants = get_assistant_list()
+        return AssistantListResponse().format(assistants)
     except Exception as e:
         logging.error(f"{str(e)}")
     return {"message": "Failed"}
