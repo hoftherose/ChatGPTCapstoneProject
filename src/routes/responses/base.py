@@ -5,7 +5,8 @@ from typing import Optional
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
 
-from src.utils import StatusCodes, SystemCodes
+from src.repositories.db import Base
+from src.utils import StatusCodes, SystemCodes, orm_as_dict
 
 
 class BaseResponse(BaseModel):
@@ -83,6 +84,8 @@ class BaseResponse(BaseModel):
 
         if content is None:
             content = {}
+        elif isinstance(content, Base):
+            content = orm_as_dict(content)
         if isinstance(content, list):
             inner_schema = self.Schema.__fields__["__root__"].type_
             schema_content = self.Schema(
@@ -91,7 +94,7 @@ class BaseResponse(BaseModel):
         elif isinstance(content, dict):
             schema_content = self.Schema(**content)
         else:
-            pass
+           pass
 
         return JSONResponse(
             status_code=self.get("status_code"),
