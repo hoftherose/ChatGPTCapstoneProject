@@ -16,14 +16,10 @@ class AssistantSchema(BaseModel):
 
     id: str
     created_at: datetime
-    description: Optional[str]
     file_ids: List[str]
     instructions: str
-    metadata: dict[str, str]
     model: str
     name: str
-    object: str
-    tools: List[ToolSchema]
 
 class AssistantCreatedResponse(BaseResponse):
     """Response for assistants"""
