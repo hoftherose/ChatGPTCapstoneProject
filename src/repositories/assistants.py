@@ -18,7 +18,6 @@ class AssistantsTable(Base):
     file_path = Column("file_path", String(100))
     model = Column("model", String(100))
     created_at = Column("created_at", Date)
-    created_by = Column("created_by", Date)
 
     @classmethod
     def select_assistant(cls, assistantid: int):
@@ -29,7 +28,6 @@ class AssistantsTable(Base):
             cls.file_path,
             cls.model,
             cls.created_at,
-            cls.created_by,
         ).where(
             cls.assistant_id == assistantid,
         )
