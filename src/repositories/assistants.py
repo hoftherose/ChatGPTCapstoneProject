@@ -14,7 +14,7 @@ class AssistantsTable(Base):
     __tablename__ = "assistants"
 
     id = Column("id", Integer, primary_key=True)
-    assistant_id = Column("assistant_id", Integer)
+    assistant_id = Column("assistant_id", String(100))
     assistant_name = Column("assistant_name", String(100))
     thread_id = Column("thread_id", String(100))
     file_path = Column("file_path", String(100))
