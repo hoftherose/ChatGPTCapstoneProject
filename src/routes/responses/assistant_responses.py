@@ -25,6 +25,17 @@ class AssistantSchema(BaseModel):
     object: str
     tools: List[ToolSchema]
 
+class AssistantCreatedResponse(BaseResponse):
+    """Response for assistants"""
+
+    message: str = "Assistant successfully obtained"
+    code: int = SystemCodes.SUCCESSFUL_QUERY
+
+    class Schema(BaseModel):
+        """Data Schema"""
+
+        assistant: List[AssistantSchema]
+
 class AssistantResponse(BaseResponse):
     """Response for assistants"""
 

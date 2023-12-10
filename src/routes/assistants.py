@@ -1,7 +1,7 @@
 from fastapi import APIRouter, UploadFile
 
 from src.routes.responses.error_response import ErrorResponses
-from src.routes.responses import AssistantListResponse, AssistantResponse
+from src.routes.responses import AssistantListResponse, AssistantCreatedResponse, AssistantResponse
 from src.services.assistants import *
 from src.utils.constants import logging
 from src.utils.pdf_spliter import split_into_chapters
@@ -40,12 +40,14 @@ def get_assistants(assistant_id: str):
     return {"message": "Failed"}
 
 @assistant_router.post(
-        "/"
+        "/",
+        response_model=AssistantCreatedResponse().model(),
+        response_description=AssistantCreatedResponse().get("description"),
     )
 def create_assistants(file: UploadFile):
     try:
         response = create_assistant(file)
-        return response
+        return AssistantCreatedResponse().format(response)
     except FileNotFoundError as e:
         logging.error(f"File \"{file.filename}\" does not exist")
     except Exception as e:

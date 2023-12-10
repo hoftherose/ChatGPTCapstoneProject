@@ -55,16 +55,16 @@ def create_assistant(file):
     file = upload_file(path)
     if file is None:
         logging.error("Assistant could not be created")
-        return []
+        return {"assistant": []}
     assistant = client.beta.assistants.create(
-        name="Study Quizzer Assistant",
+        name=f"{file.filename} Study Assistant",
         instructions="You're a helpful assistant that creates questions to help study from a specific document.",
         tools=[{"type": "retrieval"}],
         model="gpt-4-1106-preview",
         file_ids=[file.id],
     )
     AssistantsTable.insert_assistant(assistant.name, path, assistant.model)
-    return [
+    return {"assistant": [
         {
             "name": assistant.name,
             "instructions": assistant.instructions,
@@ -72,4 +72,4 @@ def create_assistant(file):
             "model": assistant.model,
             "file_ids": assistant.file_ids,
         }
-    ]
+    ]}
