@@ -9,3 +9,25 @@ services:
       - .env
     volumes:
       - .:/usr/src/app
+
+  postgres:
+    container_name: postgres
+    image: postgres:16.1
+    restart: always
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:8.0
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_LISTEN_ADDRESS: 0.0.0.0
+    ports:
+      - "5050:80"
