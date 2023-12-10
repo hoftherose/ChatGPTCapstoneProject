@@ -33,7 +33,7 @@ def list_assistants():
 def get_assistants(assistant_id: str):
     try:
         assistant = get_assistant(assistant_id)
-        return AssistantListResponse().format(assistant)
+        return AssistantResponse().format(assistant)
     except Exception as e:
         logging.error(f"{str(e)}")
     return {"message": "Failed"}
