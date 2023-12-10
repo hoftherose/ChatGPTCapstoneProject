@@ -1,7 +1,7 @@
 from fastapi import APIRouter, UploadFile
-from fastapi.exceptions import ResponseValidationError
 
-from src.routes.responses import AssistantListResponse
+from src.routes.responses.error_response import ErrorResponses
+from src.routes.responses import AssistantListResponse, AssistantResponse
 from src.services.assistants import *
 from src.utils.constants import client, logging
 
@@ -9,6 +9,7 @@ from src.utils.constants import client, logging
 assistant_router = APIRouter(
     prefix="/api/v1/assistant",
     tags=["Assistant"],
+    responses=ErrorResponses.all(),
 )
 
 @assistant_router.get(
@@ -24,11 +25,15 @@ def list_assistants():
         logging.error(f"{str(e)}")
     return {"message": "Failed"}
 
-@assistant_router.get("/{assistant_id}")
+@assistant_router.get(
+        "/{assistant_id}",
+        response_model=AssistantResponse().model(),
+        response_description=AssistantResponse().get("description"),
+    )
 def get_assistants(assistant_id: str):
     try:
         assistant = get_assistant(assistant_id)
-        return assistant
+        return AssistantListResponse().format(assistant)
     except Exception as e:
         logging.error(f"{str(e)}")
     return {"message": "Failed"}
