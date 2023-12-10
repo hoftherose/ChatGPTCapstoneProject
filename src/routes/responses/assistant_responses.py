@@ -25,10 +25,21 @@ class AssistantSchema(BaseModel):
     object: str
     tools: List[ToolSchema]
 
-class AssistantListResponse(BaseResponse):
-    """Response for loan contract payments"""
+class AssistantResponse(BaseResponse):
+    """Response for assistants"""
 
-    message: str = "Se obtuvo el monto exitosamente"
+    message: str = "Assistant successfully obtained"
+    code: int = SystemCodes.SUCCESSFUL_QUERY
+
+    class Schema(BaseModel):
+        """Data Schema"""
+
+        assistant: AssistantSchema
+
+class AssistantListResponse(BaseResponse):
+    """Response for assistant lists"""
+
+    message: str = "Assistant list successfully obtained"
     code: int = SystemCodes.SUCCESSFUL_QUERY
 
     class Schema(BaseModel):
