@@ -2,8 +2,7 @@ CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     user_name VARCHAR(100) NOT NULL,
     user_not_so_secret VARCHAR(100) NOT NULL,
-    created_at DATE NOT NULL,
-    created_by DATE NOT NULL
+    created_at DATE NOT NULL
 );
 
 CREATE TABLE assistants (
@@ -11,8 +10,7 @@ CREATE TABLE assistants (
     assistant_name VARCHAR(100) NOT NULL,
     file_path VARCHAR(100) NOT NULL,
     model VARCHAR(100) NOT NULL,
-    created_at DATE NOT NULL,
-    created_by DATE NOT NULL
+    created_at DATE NOT NULL
 );
 
 CREATE TABLE threads (
@@ -21,7 +19,6 @@ CREATE TABLE threads (
     user_id INT NOT NULL,
     assistant_id INT NOT NULL,
     created_at DATE NOT NULL,
-    created_by DATE NOT NULL,
     CONSTRAINT fk_user
         FOREIGN KEY(user_id)
         REFERENCES users(user_id),
