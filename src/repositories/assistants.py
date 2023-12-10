@@ -1,7 +1,7 @@
 """Table ORM definitions"""
 from typing import Union, List
 from sqlalchemy import Column, Integer, String, Date
-from sqlalchemy import select, and_
+from sqlalchemy import select, insert, and_
 
 from src.repositories.db import Base, session
 from src.utils.errors import Errors
@@ -33,3 +33,13 @@ class AssistantsTable(Base):
         )
         resp = session.execute(stmt)
         return resp
+
+    @classmethod
+    def insert_assistant(cls, name, path, model: str):
+        """Insert assistant information"""
+        stmt = insert(cls).values(
+            assistant_name=name,
+            file_path=path,
+            model=model,
+        )
+        session.execute(stmt)
