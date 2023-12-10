@@ -1,5 +1,7 @@
+import shutil
 import datetime
 
+from src.repositories.assistants import AssistantsTable
 from src.utils.constants import client, logging
 
 def upload_file(path):
@@ -42,11 +44,18 @@ def get_assistant_list():
         } for assistant in assistants],
     }
 
-def create_assistant(path):
+def store_file(file):
+    path = f"./textbooks/{file.filename}"
+    with open(path, "wb+") as file_object:
+        shutil.copyfileobj(file.file, file_object) 
+    return path
+
+def create_assistant(file):
+    path = store_file(file)
     file = upload_file(path)
     if file is None:
         logging.error("Assistant could not be created")
-        return None
+        return []
     assistant = client.beta.assistants.create(
         name="Study Quizzer Assistant",
         instructions="You're a helpful assistant that creates questions to help study from a specific document.",
@@ -54,4 +63,13 @@ def create_assistant(path):
         model="gpt-4-1106-preview",
         file_ids=[file.id],
     )
-    return assistant
+    AssistantsTable.insert_assistant(assistant.name, path, assistant.model)
+    return [
+        {
+            "name": assistant.name,
+            "instructions": assistant.instructions,
+            "tools": assistant.tools,
+            "model": assistant.model,
+            "file_ids": assistant.file_ids,
+        }
+    ]

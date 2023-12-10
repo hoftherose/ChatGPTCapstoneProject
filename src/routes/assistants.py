@@ -44,7 +44,7 @@ def get_assistants(assistant_id: str):
     )
 def create_assistants(file: UploadFile):
     try:
-        response = create_assistant(file.filename)
+        response = create_assistant(file)
         return response
     except FileNotFoundError as e:
         logging.error(f"File \"{file.filename}\" does not exist")
