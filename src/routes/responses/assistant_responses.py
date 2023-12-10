@@ -6,11 +6,6 @@ from pydantic import BaseModel
 from src.utils import SystemCodes
 from src.routes.responses.base import BaseResponse
 
-
-class ToolSchema(BaseModel):
-    """Schema for tools"""
-    type: str
-
 class AssistantSchema(BaseModel):
     """Schema for assistants"""
 
