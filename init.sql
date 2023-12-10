@@ -24,7 +24,7 @@ CREATE TABLE threads (
     created_by DATE NOT NULL,
     CONSTRAINT fk_user
         FOREIGN KEY(user_id)
-        REFERENCES user(user_id),
+        REFERENCES users(user_id),
     CONSTRAINT fk_assistant
         FOREIGN KEY (assistant_id)
         REFERENCES assistants(assistant_id)
