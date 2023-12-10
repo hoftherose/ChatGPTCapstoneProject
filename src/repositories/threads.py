@@ -21,7 +21,7 @@ class ThreadTable(Base):
     created_by = Column("created_by", Date)
 
     @classmethod
-    async def select_thread(cls, threadid: int):
+    def select_thread(cls, threadid: int):
         """Return thread information"""
         stmt = select(
             cls.thread_id,

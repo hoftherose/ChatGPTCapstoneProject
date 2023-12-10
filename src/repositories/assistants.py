@@ -21,7 +21,7 @@ class AssistantsTable(Base):
     created_by = Column("created_by", Date)
 
     @classmethod
-    async def select_assistant(cls, assistantid: int):
+    def select_assistant(cls, assistantid: int):
         """Return assistant information"""
         stmt = select(
             cls.assistant_id,
