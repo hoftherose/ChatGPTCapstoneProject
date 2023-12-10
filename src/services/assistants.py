@@ -11,6 +11,12 @@ def upload_file(path):
     )
     return file
 
+def store_file(file):
+    path = f"./textbooks/{file.filename}"
+    with open(path, "wb+") as file_object:
+        shutil.copyfileobj(file.file, file_object) 
+    return path
+
 def get_assistant(assistant_id):
     assistant = client.beta.assistants.retrieve(assistant_id)
     return {"assistant": {
@@ -44,12 +50,6 @@ def get_assistant_list():
         } for assistant in assistants],
     }
 
-def store_file(file):
-    path = f"./textbooks/{file.filename}"
-    with open(path, "wb+") as file_object:
-        shutil.copyfileobj(file.file, file_object) 
-    return path
-
 def create_assistant(file):
     path = store_file(file)
     file = upload_file(path)
@@ -63,11 +63,13 @@ def create_assistant(file):
         model="gpt-4-1106-preview",
         file_ids=[file.id],
     )
-    AssistantsTable.insert_assistant(assistant.name, assistant.id, path, assistant.model)
+    thread = client.beta.threads.create()
+    AssistantsTable.insert_assistant(assistant.id, assistant.name, thread.id, path, assistant.model)
     return {"assistant": [
         {
             "id": assistant.id,
             "name": assistant.name,
+            "thread_id": thread.id,
             "instructions": assistant.instructions,
             "model": assistant.model,
             "file_ids": assistant.file_ids,

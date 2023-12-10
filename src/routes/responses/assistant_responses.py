@@ -10,6 +10,7 @@ class AssistantSchema(BaseModel):
     """Schema for assistants"""
 
     id: str
+    thread_id: str
     created_at: datetime
     file_ids: List[str]
     instructions: str
