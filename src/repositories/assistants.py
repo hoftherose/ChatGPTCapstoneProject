@@ -14,7 +14,7 @@ class AssistantsTable(Base):
     __tablename__ = "assistants"
 
     id = Column("id", Integer, primary_key=True)
-    assistant_id = Column("assistant_id", Integer, primary_key=True)
+    assistant_id = Column("assistant_id", Integer)
     assistant_name = Column("assistant_name", String(100))
     thread_id = Column("thread_id", String(100))
     file_path = Column("file_path", String(100))
@@ -22,7 +22,7 @@ class AssistantsTable(Base):
     created_at = Column("created_at", Date)
 
     @classmethod
-    def select_assistant(cls, assistantid: int):
+    def select_assistant(cls, assistant_id: int):
         """Return assistant information"""
         stmt = select(
             cls.id,
@@ -33,7 +33,7 @@ class AssistantsTable(Base):
             cls.model,
             cls.created_at,
         ).where(
-            cls.id == assistantid,
+            cls.id == assistant_id,
         )
         resp = session.execute(stmt)
         return resp
