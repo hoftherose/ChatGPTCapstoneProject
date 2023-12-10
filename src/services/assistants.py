@@ -63,13 +63,14 @@ def create_assistant(file):
         model="gpt-4-1106-preview",
         file_ids=[file.id],
     )
-    AssistantsTable.insert_assistant(assistant.name, path, assistant.model)
+    AssistantsTable.insert_assistant(assistant.name, assistant.id, path, assistant.model)
     return {"assistant": [
         {
+            "id": assistant.id,
             "name": assistant.name,
             "instructions": assistant.instructions,
-            "tools": assistant.tools,
             "model": assistant.model,
             "file_ids": assistant.file_ids,
+            "created_at": assistant.created_at,
         }
     ]}
