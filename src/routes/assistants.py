@@ -3,7 +3,8 @@ from fastapi import APIRouter, UploadFile
 from src.routes.responses.error_response import ErrorResponses
 from src.routes.responses import AssistantListResponse, AssistantResponse
 from src.services.assistants import *
-from src.utils.constants import client, logging
+from src.utils.constants import logging
+from src.utils.pdf_spliter import split_into_chapters
 
 
 assistant_router = APIRouter(
@@ -38,24 +39,25 @@ def get_assistants(assistant_id: str):
         logging.error(f"{str(e)}")
     return {"message": "Failed"}
 
-@assistant_router.post("/")
+@assistant_router.post(
+        "/"
+    )
 def create_assistants(file: UploadFile):
     try:
-        create_assistant(file.filename)
-        return {"message": "Succeeded"}
+        response = create_assistant(file.filename)
+        return response
     except FileNotFoundError as e:
         logging.error(f"File \"{file.filename}\" does not exist")
     except Exception as e:
         logging.error(f"{str(e)}")
-    return {"message": "Failed"}
 
 @assistant_router.post("/chapters")
 def create_multiple_assistant(file: UploadFile, chapters: str):
     try:
-        create_assistant(file.filename)
-        return {"message": "Succeeded"}
+        chapters = split_into_chapters(file, chapters)
+        for chapter in chapters:
+            create_assistant(chapter)
     except FileNotFoundError as e:
         logging.error(f"File \"{file.filename}\" does not exist")
     except Exception as e:
         logging.error(f"{str(e)}")
-    return {"message": "Failed"}
