@@ -11,7 +11,7 @@ def upload_file(path):
 
 def get_assistant(assistant_id):
     assistant = client.beta.assistants.retrieve(assistant_id)
-    return {
+    return {"assistant": {
         "id": assistant.id,
         "created_at": datetime.datetime.fromtimestamp(int(assistant.created_at)),
         "description": assistant.description,
@@ -22,7 +22,7 @@ def get_assistant(assistant_id):
         "name": assistant.name,
         "object": assistant.object,
         "tools": [{"type": tool.type} for tool in assistant.tools],
-    }
+    }}
 
 def get_assistant_list():
     assistants = client.beta.assistants.list().model_dump()["data"]
