@@ -20,6 +20,19 @@ class UserTable(Base):
     created_by = Column("created_by", Date)
 
     @classmethod
+    async def select_all_users(cls, userid: int):
+        """Return user information"""
+        stmt = select(
+            cls.user_id,
+            cls.user_name,
+            cls.user_not_so_secret,
+            cls.created_at,
+            cls.created_by,
+        )
+        resp = session.execute(stmt)
+        return resp
+
+    @classmethod
     async def select_user(cls, userid: int):
         """Return user information"""
         stmt = select(
