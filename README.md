@@ -27,3 +27,13 @@ Now that you have the assistant id you can create N number of questions with the
 ### Checking potential answers
 Now you have everything you need, find a question you think you can answer and send it to post:/api/v1/answers/{question_id}. ChatGPT should tell you if you are correct, as well as some observations that can help if you got it wrong, or to get a more complete answer.
 
+## What we can improve.
+* Error handling: It was originally planned, but at the end I didn't have time.
+* API optimization: Since assistants were used we were forced into a more expensive model. Finding ways to reduce price, most of the prices comes from the fact that the documents you upload can be quite large, but hopefully there may be ways to optimize.
+* Multi-users/Multi-tenant: More users would mean not having to create as many assistants for each users.
+* UI: Swagger is fine for showing the functionallity but a front end would be simple enough and can go far.
+* Scalability: Did not make this async due to it being easier, but it might be more friendly due to how long some of the requests take.
+
+## Things I feel we got right.
+* Question creation: The questions are actually pretty useful for studying and chatgpt is pretty good at not repeating questions.
+* Answer verification: From testing, answers are well "graded", being able to find incomplete answers, giving suitable explanations and providing more detailed solutions even when you are right.
