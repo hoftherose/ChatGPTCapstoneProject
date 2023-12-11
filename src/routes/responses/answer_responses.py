@@ -4,7 +4,9 @@ from pydantic import BaseModel
 from src.utils import SystemCodes
 from src.routes.responses.base import BaseResponse
 
-
+class ResultSchema(BaseModel):
+    correct: bool
+    observations: str
 class AnswerResponse(BaseResponse):
     """Response for questoins"""
 
@@ -14,5 +16,7 @@ class AnswerResponse(BaseResponse):
     class Schema(BaseModel):
         """Data Schema"""
 
-        result: str
-        observation: str
+        answer: str
+        question: str
+        result: ResultSchema
+        

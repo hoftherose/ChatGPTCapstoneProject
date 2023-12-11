@@ -16,6 +16,7 @@ answers_router = APIRouter(
     response_model=AnswerResponse().model(),
     response_description=AnswerResponse().get("description"),
 )
+
 def answer_question(question_id: int, answer: str):
     result = review_answer(question_id, answer)
-    return AnswerResponse.format(result)
+    return AnswerResponse().format(result)

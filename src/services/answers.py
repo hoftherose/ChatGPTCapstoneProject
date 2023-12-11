@@ -1,7 +1,7 @@
 import time
 import json
 
-from src.utils.constants import client
+from src.utils.constants import client, logging
 from src.repositories.questions import QuestionsTable
 from src.repositories.assistants import AssistantsTable
 
@@ -33,5 +33,9 @@ def review_answer(question_id: int, answer: str):
 
     messages = client.beta.threads.messages.list(thread_id=thread_id)
     message = messages.data[0].content[0].text.value
-    json_message = json.loads(message)
-    return json_message
+    result = json.loads(message[8:-4])
+    return {
+        "answer": answer,
+        "question": question,
+        "result": result,
+    }
