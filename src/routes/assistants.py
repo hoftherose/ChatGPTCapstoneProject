@@ -2,9 +2,8 @@ from fastapi import APIRouter, UploadFile
 
 from src.routes.responses.error_response import ErrorResponses
 from src.routes.responses import AssistantListResponse, AssistantCreatedResponse, AssistantResponse
-from src.services.assistants import *
 from src.utils.constants import logging
-from src.utils.pdf_spliter import split_into_chapters
+from src.services.assistants import *
 
 
 assistant_router = APIRouter(
