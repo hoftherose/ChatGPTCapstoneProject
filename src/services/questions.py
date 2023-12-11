@@ -11,7 +11,8 @@ def list_questions(thread_id: str):
     return {
             "questions": [
                 {
-                    "question": q[2]
+                    "id": q[0],
+                    "question": q[2],
                 }
                 for q in question_list
             ]
@@ -22,7 +23,8 @@ def get_questions(id: str):
     return {
         "questions": [
                 {
-                    "question": q[2]
+                    "id": q[0],
+                    "question": q[2],
                 }
                 for q in question
             ]

@@ -7,9 +7,15 @@ from src.utils import SystemCodes
 from src.routes.responses.base import BaseResponse
 
 
+class CreatedQuestionSchema(BaseModel):
+    """Schema for questions"""
+
+    question: str
+
 class QuestionSchema(BaseModel):
     """Schema for questions"""
 
+    id: int
     question: str
 
 class QuestionCreatedResponse(BaseResponse):
@@ -21,7 +27,7 @@ class QuestionCreatedResponse(BaseResponse):
     class Schema(BaseModel):
         """Data Schema"""
 
-        questions: List[QuestionSchema]
+        questions: List[CreatedQuestionSchema]
 
 class QuestionListResponse(BaseResponse):
     """Response for questions"""
