@@ -33,6 +33,7 @@ Now you have everything you need, find a question you think you can answer and s
 * Multi-users/Multi-tenant: More users would mean not having to create as many assistants for each users.
 * UI: Swagger is fine for showing the functionallity but a front end would be simple enough and can go far.
 * Scalability: Did not make this async due to it being easier, but it might be more friendly due to how long some of the requests take.
+* Some bugs/inconsistencies: Could be fixed with some time.
 
 ## Things I feel we got right.
 * Question creation: The questions are actually pretty useful for studying and chatgpt is pretty good at not repeating questions.
