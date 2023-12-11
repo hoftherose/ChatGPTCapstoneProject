@@ -33,7 +33,7 @@ class AssistantsTable(Base):
             cls.model,
             cls.created_at,
         ).where(
-            cls.id == assistant_id,
+            cls.assistant_id == assistant_id,
         )
         resp = session.execute(stmt)
         return resp
