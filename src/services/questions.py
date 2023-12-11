@@ -3,7 +3,7 @@ import time
 from src.repositories.assistants import AssistantsTable
 from src.repositories.questions import QuestionsTable
 from src.utils import get_numbered_list
-from src.utils.constants import client
+from src.utils.constants import client, logging
 
 
 def list_questions(thread_id: str):
@@ -18,16 +18,13 @@ def list_questions(thread_id: str):
             ]
         }
 
-def get_questions(id: str):
-    question = QuestionsTable.select_question(id=id).all()
+def get_questions(id: int):
+    question = QuestionsTable.select_question(id=id).all()[0]
     return {
-        "questions": [
-                {
-                    "id": q[0],
-                    "question": q[2],
+        "questions": {
+                    "id": question[0],
+                    "question": question[2],
                 }
-                for q in question
-            ]
     }
 
 def generate_questions(assistant_id: str, num_questions: int):
@@ -53,7 +50,8 @@ def generate_questions(assistant_id: str, num_questions: int):
         )
 
     messages = client.beta.threads.messages.list(thread_id=thread_id)
-    questions = get_numbered_list(messages.data[0].content[0].text.value)
+    message = messages.data[0].content[0].text.value
+    questions = get_numbered_list(message)
     for q in questions:
         QuestionsTable.insert_question(thread_id, q)
     return { "questions":
