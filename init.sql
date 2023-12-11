@@ -7,3 +7,10 @@ CREATE TABLE assistants (
     model VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE questions (
+    id SERIAL PRIMARY KEY,
+    thread_id VARCHAR(100) NOT NULL,
+    question VARCHAR(240) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
