@@ -17,6 +17,16 @@ class AssistantSchema(BaseModel):
     model: str
     name: str
 
+class APIAssistantSchema(BaseModel):
+    """Schema for assistants"""
+
+    id: str
+    created_at: datetime
+    file_ids: List[str]
+    instructions: str
+    model: str
+    name: str
+
 class AssistantCreatedResponse(BaseResponse):
     """Response for assistants"""
 
@@ -37,7 +47,7 @@ class AssistantResponse(BaseResponse):
     class Schema(BaseModel):
         """Data Schema"""
 
-        assistant: AssistantSchema
+        assistant: APIAssistantSchema
 
 class AssistantListResponse(BaseResponse):
     """Response for assistant lists"""
@@ -49,4 +59,4 @@ class AssistantListResponse(BaseResponse):
         """Data Schema"""
 
         num_assistants: int
-        assistants: List[AssistantSchema]
+        assistants: List[APIAssistantSchema]

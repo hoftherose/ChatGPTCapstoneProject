@@ -10,12 +10,7 @@ from src.routes.responses.base import BaseResponse
 class QuestionSchema(BaseModel):
     """Schema for questions"""
 
-    id: str
-    created_at: datetime
-    file_ids: List[str]
-    instructions: str
-    model: str
-    name: str
+    message: str
 
 class QuestionCreatedResponse(BaseResponse):
     """Response for questoins"""
