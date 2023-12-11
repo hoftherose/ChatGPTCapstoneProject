@@ -17,9 +17,9 @@ questions_router = APIRouter(
     response_model=QuestionCreatedResponse().model(),
     response_description=QuestionCreatedResponse().get("description"),
 )
-def generate(assistant_id: str):
+def generate(assistant_id: str, num_questions: int = 10):
     try:
-        assistants = generate_questions(assistant_id)
+        assistants = generate_questions(assistant_id, num_questions)
         return QuestionCreatedResponse().format(assistants)
     except Exception as e:
         logging.error(f"{str(e)}")
