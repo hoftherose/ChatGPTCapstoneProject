@@ -6,6 +6,12 @@ from src.utils import get_numbered_list
 from src.utils.constants import client
 
 
+def list_questions(thread_id: str):
+    return QuestionsTable.list_question(thread_id=thread_id)
+
+def get_questions(id: str):
+    return QuestionsTable.select_question(id=id)
+
 def generate_questions(assistant_id: str, num_questions: int):
     assistant = AssistantsTable.select_assistant(assistant_id).all()[0]
     thread_id = assistant[3]
