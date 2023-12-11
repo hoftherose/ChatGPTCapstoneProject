@@ -36,6 +36,23 @@ class AssistantsTable(Base):
         return resp
 
     @classmethod
+    def select_assistant_by_thread(cls, thread_id: int):
+        """Return assistant information"""
+        stmt = select(
+            cls.id,
+            cls.assistant_id,
+            cls.assistant_name,
+            cls.thread_id,
+            cls.file_path,
+            cls.model,
+            cls.created_at,
+        ).where(
+            cls.thread_id == thread_id,
+        )
+        resp = session.execute(stmt)
+        return resp
+
+    @classmethod
     def insert_assistant(cls, assistant_id, name, thread_id, path, model: str):
         """Insert assistant information"""
         stmt = insert(cls).values(

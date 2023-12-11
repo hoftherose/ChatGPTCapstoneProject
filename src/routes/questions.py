@@ -3,7 +3,6 @@ from fastapi import APIRouter
 from src.routes.responses.error_response import ErrorResponses
 from src.routes.responses import QuestionCreatedResponse, QuestionListResponse, QuestionResponse
 from src.services.questions import *
-from src.utils.constants import logging
 
 
 questions_router = APIRouter(
