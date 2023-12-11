@@ -30,7 +30,8 @@ def generate_questions(assistant_id: str, num_questions: int):
 
     messages = client.beta.threads.messages.list(thread_id=thread_id)
     questions = get_numbered_list(messages.data[0].content[0].text.value)
-    
+    for q in questions:
+        QuestionsTable.insert_question(thread_id, q)
     return { "questions":
             [{ "question": q} for q in questions]
         }
