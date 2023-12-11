@@ -7,10 +7,26 @@ from src.utils.constants import client
 
 
 def list_questions(thread_id: str):
-    return QuestionsTable.list_question(thread_id=thread_id)
+    question_list = QuestionsTable.list_question(thread_id=thread_id).all()
+    return {
+            "questions": [
+                {
+                    "question": q[2]
+                }
+                for q in question_list
+            ]
+        }
 
 def get_questions(id: str):
-    return QuestionsTable.select_question(id=id)
+    question = QuestionsTable.select_question(id=id).all()
+    return {
+        "questions": [
+                {
+                    "question": q[2]
+                }
+                for q in question
+            ]
+    }
 
 def generate_questions(assistant_id: str, num_questions: int):
     assistant = AssistantsTable.select_assistant(assistant_id).all()[0]

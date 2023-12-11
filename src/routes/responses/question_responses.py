@@ -23,6 +23,17 @@ class QuestionCreatedResponse(BaseResponse):
 
         questions: List[QuestionSchema]
 
+class QuestionListResponse(BaseResponse):
+    """Response for questions"""
+
+    message: str = "Question successfully obtained"
+    code: int = SystemCodes.SUCCESSFUL_QUERY
+
+    class Schema(BaseModel):
+        """Data Schema"""
+
+        questions: List[QuestionSchema]
+
 class QuestionResponse(BaseResponse):
     """Response for questions"""
 
