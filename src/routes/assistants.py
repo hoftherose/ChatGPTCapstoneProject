@@ -18,12 +18,8 @@ assistant_router = APIRouter(
     response_description=AssistantListResponse().get("description"),
 )
 def list_assistants():
-    try:
-        assistants = get_assistant_list()
-        return AssistantListResponse().format(assistants)
-    except Exception as e:
-        logging.error(f"{str(e)}")
-    return {"message": "Failed"}
+    assistants = get_assistant_list()
+    return AssistantListResponse().format(assistants)
 
 @assistant_router.get(
         "/{assistant_id}",
@@ -31,12 +27,8 @@ def list_assistants():
         response_description=AssistantResponse().get("description"),
     )
 def get_assistants(assistant_id: str):
-    try:
-        assistant = get_assistant(assistant_id)
-        return AssistantResponse().format(assistant)
-    except Exception as e:
-        logging.error(f"{str(e)}")
-    return {"message": "Failed"}
+    assistant = get_assistant(assistant_id)
+    return AssistantResponse().format(assistant)
 
 @assistant_router.post(
         "/",
@@ -44,10 +36,5 @@ def get_assistants(assistant_id: str):
         response_description=AssistantCreatedResponse().get("description"),
     )
 def create_assistants(file: UploadFile):
-    try:
         assistant = create_assistant(file)
         return AssistantCreatedResponse().format(assistant)
-    except FileNotFoundError as e:
-        logging.error(f"File \"{file.filename}\" does not exist")
-    except Exception as e:
-        logging.error(f"{str(e)}")
