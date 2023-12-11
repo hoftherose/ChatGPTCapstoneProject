@@ -1,11 +1,8 @@
 """Table ORM definitions"""
-from typing import Union, List
 from sqlalchemy import Column, Integer, String, Date
-from sqlalchemy import select, insert, and_
+from sqlalchemy import select, insert
 
 from src.repositories.db import Base, session
-from src.utils.errors import Errors
-from src.utils import SystemCodes
 
 
 class AssistantsTable(Base):
