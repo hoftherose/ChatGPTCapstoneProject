@@ -1,6 +1,7 @@
 import time
 
 from src.repositories.assistants import AssistantsTable
+from src.utils import get_numbered_list
 from src.utils.constants import client
 
 
@@ -27,4 +28,7 @@ def generate_questions(assistant_id: str, num_questions: int):
         )
 
     messages = client.beta.threads.messages.list(thread_id=thread_id)
-    return [{ "messages": messages.data[0].content[0].text.value }]
+    questions = get_numbered_list(messages.data[0].content[0].text.value)
+    return { "questions":
+            [{ "question": q} for q in questions]
+        }
