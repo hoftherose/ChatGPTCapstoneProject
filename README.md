@@ -3,6 +3,16 @@
 In this repo we will be using ChatGPT and the Openai API to create a study card creator for any textbook.
 
 ## Setup
+To setup the project you can use docker-compose. That being said, there are some variables that need to be setup before. For the database you can use the following values to mirror what is already set in docker-compose.
+
+```
+DB_ADDRESS=postgres
+DB_USER=user
+DB_PASS=password
+DB_NAME=db
+```
+
+The only thing missing is your openai key. You can get this by following [this guide.](https://www.howtogeek.com/885918/how-to-get-an-openai-api-key/)
 
 ## Usage
 
