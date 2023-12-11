@@ -13,7 +13,7 @@ questions_router = APIRouter(
 )
 
 @questions_router.get(
-    "/{thread_id}",
+    "/list/{thread_id}",
     response_model=QuestionListResponse().model(),
     response_description=QuestionListResponse().get("description"),
 )
@@ -26,7 +26,7 @@ def list_question(thread_id: str):
     response_model=QuestionResponse().model(),
     response_description=QuestionResponse().get("description"),
 )
-def get_question(question_id: str):
+def get_question(question_id: int):
     questions = get_questions(question_id)
     return QuestionResponse().format(questions)
 
