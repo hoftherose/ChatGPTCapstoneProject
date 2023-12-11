@@ -52,14 +52,3 @@ def create_assistants(file: UploadFile):
         logging.error(f"File \"{file.filename}\" does not exist")
     except Exception as e:
         logging.error(f"{str(e)}")
-
-@assistant_router.post("/chapters")
-def create_multiple_assistant(file: UploadFile, chapters: str):
-    try:
-        chapters = split_into_chapters(file, chapters)
-        for chapter in chapters:
-            create_assistant(chapter)
-    except FileNotFoundError as e:
-        logging.error(f"File \"{file.filename}\" does not exist")
-    except Exception as e:
-        logging.error(f"{str(e)}")
